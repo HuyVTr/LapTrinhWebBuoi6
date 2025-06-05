@@ -1,0 +1,23 @@
+﻿@model LapTrinhWebBuoi6.Models.Category
+
+@{
+    ViewData["Title"] = "Xoá danh mục";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="text-danger">@ViewData["Title"]</h2>
+
+    <div class="mb-3">
+        <strong>Tên:</strong> @Model.Name
+    </div>
+    <div class="mb-3">
+        <strong>Mô tả:</strong> @Model.Description
+    </div>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Xoá</button>
+        <a asp-action="Index" class="btn btn-secondary">Huỷ</a>
+    </form>
+</div>

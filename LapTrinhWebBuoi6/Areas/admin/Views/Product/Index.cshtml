@@ -1,0 +1,48 @@
+﻿@model IEnumerable<LapTrinhWebBuoi6.Models.Product>
+
+@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Danh sách sản phẩm</h2>
+
+    <a asp-action="Create" class="btn btn-primary mb-3">Thêm mới</a>
+
+    <table class="table table-bordered table-striped align-middle text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>Hình ảnh</th>
+                <th>Tên</th>
+                <th>Mô tả</th>
+                <th>Giá</th>
+                <th>Chức năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.ImageUrl))
+                        {
+                            <img src="~/images/@item.ImageUrl" alt="Ảnh sản phẩm" width="80" height="80" class="img-thumbnail" />
+                        }
+                        else
+                        {
+                            <span class="text-muted">Không có</span>
+                        }
+                    </td>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>@item.Price.ToString("N0") VND</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm me-1">Sửa</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Xoá</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

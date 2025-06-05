@@ -1,0 +1,62 @@
+﻿@model LapTrinhWebBuoi6.Models.Product
+@{
+    ViewData["Title"] = "Chỉnh sửa sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Chỉnh sửa sản phẩm</h2>
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <form asp-action="EditPost" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Tên sản phẩm</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Mô tả</label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Price" class="form-label">Giá bán</label>
+            <input asp-for="Price" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="CategoryId" class="form-label">Danh mục</label>
+            <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select"></select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Hình ảnh hiện tại:</label><br />
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="~/images/@Model.ImageUrl" alt="Hình ảnh sản phẩm" class="img-thumbnail mb-2" width="150" />
+            }
+        </div>
+
+        <div class="mb-3">
+            <label for="NewImage" class="form-label">Đổi hình ảnh</label>
+            <input type="file" name="NewImage" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

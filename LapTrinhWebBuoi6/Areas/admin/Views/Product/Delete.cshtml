@@ -1,0 +1,42 @@
+﻿@model LapTrinhWebBuoi6.Models.Product
+@{
+    ViewData["Title"] = "Xoá sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-danger">Xác nhận xoá sản phẩm</h2>
+
+    <div class="alert alert-warning">
+        Bạn có chắc chắn muốn xoá sản phẩm: <strong>@Model.Name</strong> không?
+    </div>
+
+    <dl class="row">
+        <dt class="col-sm-3">Tên sản phẩm</dt>
+        <dd class="col-sm-9">@Model.Name</dd>
+
+        <dt class="col-sm-3">Mô tả</dt>
+        <dd class="col-sm-9">@Model.Description</dd>
+
+        <dt class="col-sm-3">Giá bán</dt>
+        <dd class="col-sm-9">@Model.Price.ToString("N0") VND</dd>
+
+        <dt class="col-sm-3">Danh mục</dt>
+        <dd class="col-sm-9">@Model.Category?.Name</dd>
+
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <dt class="col-sm-3">Hình ảnh</dt>
+            <dd class="col-sm-9">
+                <img src="~/images/@Model.ImageUrl" alt="Ảnh sản phẩm" class="img-thumbnail" width="150" />
+            </dd>
+        }
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Xác nhận xoá</button>
+        <a asp-action="Index" class="btn btn-secondary">Huỷ</a>
+    </form>
+</div>

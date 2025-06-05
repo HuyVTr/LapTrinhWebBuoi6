@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Trang chủ hệ thống quản lý bán hàng";
+}
+
+<div class="text-center mt-5">
+    <h1 class="display-4">Chào mừng đến hệ thống</h1>
+    <p class="lead">Đây là hệ thống quản lý sản phẩm và danh mục.</p>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <a class="btn btn-outline-primary m-2" asp-area="Admin" asp-controller="Product" asp-action="Index">Quản lý sản phẩm</a>
+        <a class="btn btn-outline-success m-2" asp-area="Admin" asp-controller="Category" asp-action="Index">Quản lý danh mục</a>
+    }
+    else if (User.Identity?.IsAuthenticated ?? false)
+    {
+        <p class="mt-4">Bạn đang đăng nhập với quyền <strong>Member</strong>. Bạn chỉ có thể xem sản phẩm.</p>
+    }
+    else
+    {
+        <p class="mt-4">Hãy <a asp-area="Identity" asp-page="/Account/Login">đăng nhập</a> để sử dụng hệ thống.</p>
+    }
+</div>
